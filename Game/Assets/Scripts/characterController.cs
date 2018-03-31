@@ -87,7 +87,6 @@ public class characterController : MonoBehaviour {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500));
         }
 
-<<<<<<< HEAD
         if (col.gameObject.name == "endLevel")
         {
             StatisticData.instance.FinishLevels++;
@@ -98,10 +97,10 @@ public class characterController : MonoBehaviour {
             switch (StatisticData.instance.FinishLevels)
             {
                 case 0:
-                    Application.LoadLevel("ViuginickScene");
+                    Application.LoadLevel("save-load");
                     return;
                 case 1:
-                    Application.LoadLevel("save-load");
+                    Application.LoadLevel("ViuginickScene");
                     return;
                 case 2:
                     Application.LoadLevel("save-load");
