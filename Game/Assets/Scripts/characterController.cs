@@ -82,6 +82,11 @@ public class characterController : MonoBehaviour {
             Application.LoadLevel(Application.loadedLevel);
         }
 
+        if (col.gameObject.name == "Spring")
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500));
+        }
+
         if (col.gameObject.name == "endLevel") {
 			if (!(GameObject.Find("star"))) Application.LoadLevel ("scene2");
 				}
