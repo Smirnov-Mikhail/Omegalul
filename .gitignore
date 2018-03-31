@@ -44,6 +44,8 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.pdb
+*.exe
+*.dll
 		
 MightyParty.CSharp
 MightyParty.CSharp.*
