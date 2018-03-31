@@ -17,5 +17,7 @@
 
         public int FinishLevels;
         public bool EndButtonIsActive;
+        public bool Rebooted;
+        public bool NeedReload;
     }
 }
