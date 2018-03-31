@@ -87,6 +87,7 @@ public class characterController : MonoBehaviour {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500));
         }
 
+<<<<<<< HEAD
         if (col.gameObject.name == "endLevel")
         {
             StatisticData.instance.FinishLevels++;
