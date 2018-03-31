@@ -11,6 +11,7 @@ public class characterController : MonoBehaviour {
 	public LayerMask whatIsGround;
 	public float score;
 	public float move;
+    public bool locked;
 
 	private GameObject star;
 	// Use this for initialization
@@ -28,7 +29,11 @@ public class characterController : MonoBehaviour {
 
 	}
 
-	void Update(){
+	void Update()
+    {
+        if (locked)
+            return;
+
 		if (grounded && (Input.GetKeyDown (KeyCode.W)||Input.GetKeyDown (KeyCode.UpArrow))) {
 
 			GetComponent<Rigidbody2D>().AddForce (new Vector2(0f,jumpForce));
