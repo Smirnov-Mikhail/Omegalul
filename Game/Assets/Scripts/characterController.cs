@@ -87,9 +87,35 @@ public class characterController : MonoBehaviour {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500));
         }
 
-        if (col.gameObject.name == "endLevel") {
-			if (!(GameObject.Find("star"))) Application.LoadLevel ("scene2");
-				}
+        if (col.gameObject.name == "endLevel")
+        {
+            StatisticData.instance.FinishLevels++;
+        }
+
+        if (col.gameObject.name == "nextLevel")
+        {
+            switch (StatisticData.instance.FinishLevels)
+            {
+                case 0:
+                    Application.LoadLevel("ViuginickScene");
+                    return;
+                case 1:
+                    Application.LoadLevel("save-load");
+                    return;
+                case 2:
+                    Application.LoadLevel("save-load");
+                    return;
+                case 3:
+                    Application.LoadLevel("save-load");
+                    return;
+                default:
+                    Application.LoadLevel(Application.loadedLevel);
+                    return;
+
+            }
+            /*if (!(GameObject.Find("star"))) Application.LoadLevel ("save-load");
+				}*/
+        }
 
         if (col.gameObject.name == "finishCollider" && !StatisticData.instance.EndButtonIsActive)
             Application.LoadLevel("gameOver");
