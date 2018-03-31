@@ -87,10 +87,6 @@ public class characterController : MonoBehaviour {
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500));
         }
 
-        if (col.gameObject.name == "endLevel") {
-			if (!(GameObject.Find("star"))) Application.LoadLevel ("scene2");
-				}
-
         if (col.gameObject.name == "finishCollider" && !StatisticData.instance.EndButtonIsActive)
             Application.LoadLevel("gameOver");
     }
