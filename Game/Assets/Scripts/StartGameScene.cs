@@ -11,7 +11,7 @@ namespace Assets.Scripts
         {
             for (int i = 0; i < WindowsExeptions.Count; i++)
             {
-                if (i >= StatisticData.instance.FinishLevel)
+                if (i >= StatisticData.instance.FinishLevels)
                     WindowsExeptions[i].SetActive(false);
                 else
                     WindowsExeptions[i].SetActive(true);

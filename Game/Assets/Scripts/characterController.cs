@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
 
 public class characterController : MonoBehaviour {
 	public float maxSpeed = 10f;
@@ -76,10 +77,18 @@ public class characterController : MonoBehaviour {
 						Destroy (col.gameObject);
 				}
 
-		if (col.gameObject.name == "endLevel") {
+        if (col.gameObject.name == "DangerBurger")
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
+        if (col.gameObject.name == "endLevel") {
 			if (!(GameObject.Find("star"))) Application.LoadLevel ("scene2");
 				}
-	}
+
+        if (col.gameObject.name == "finishCollider" && !StatisticData.instance.EndButtonIsActive)
+            Application.LoadLevel("gameOver");
+    }
 
 	void OnGUI(){
 				GUI.Box (new Rect (0, 0, 100, 100), "Stars: " + score);
