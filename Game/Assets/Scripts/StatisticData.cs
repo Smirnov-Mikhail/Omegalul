@@ -15,6 +15,7 @@
             }
         }
 
-        public int FinishLevel;
+        public int FinishLevels;
+        public bool EndButtonIsActive;
     }
 }

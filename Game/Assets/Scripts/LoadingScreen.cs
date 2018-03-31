@@ -7,7 +7,7 @@ namespace Assets.Scripts
     public class LoadingScreen : MonoBehaviour
     {
         public GameObject Game;
-        public GameObject Fire;
+        public SpriteRenderer Fire;
         public characterController Character;
         public List<GameObject> FistShow;
         public List<GameObject> SecondShow;
@@ -88,6 +88,8 @@ namespace Assets.Scripts
                 {
                     var color = sprites[i].color;
                     sprites[i].color = new Color(color.r, color.g, color.b, count * 0.01f);
+                    var colorFire = sprites[i].color;
+                    Fire.color = new Color(colorFire.r, colorFire.g, colorFire.b, (100 - count) * 0.01f);
                 }
                 count++;
 

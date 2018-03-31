@@ -14,13 +14,17 @@ namespace Assets.Scripts
         void OnTriggerEnter2D(Collider2D col)
         {
             button.SetActive(false);
+            StatisticData.instance.EndButtonIsActive = false;
             time = DateTime.Now;
         }
 
         private void Update()
         {
-            if (DateTime.Now > time.AddSeconds(2))
+            if (DateTime.Now > time.AddSeconds(10))
+            {
                 button.SetActive(true);
+                StatisticData.instance.EndButtonIsActive = true;
+            }
         }
     }
 }
