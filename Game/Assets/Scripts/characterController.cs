@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Assets.Scripts;
 
 public class characterController : MonoBehaviour {
@@ -17,13 +16,10 @@ public class characterController : MonoBehaviour {
 	private GameObject star;
 	// Use this for initialization
 	void Start () {
-
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
-
 		grounded = Physics2D.OverlapCircle (groundCheck.position, groundRadius, whatIsGround);
 
 		move = Input.GetAxis ("Horizontal");
@@ -46,8 +42,6 @@ public class characterController : MonoBehaviour {
 		else if (move < 0 && facingRight)
 			Flip ();
 
-
-
 		if (Input.GetKey(KeyCode.Escape))
 		{
 			Application.Quit();
@@ -55,6 +49,8 @@ public class characterController : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.R))
 		{
+            if (StatisticData.instance.NeedReload)
+                StatisticData.instance.Rebooted = true;
 			Application.LoadLevel(Application.loadedLevel);
 		}
 
@@ -84,7 +80,43 @@ public class characterController : MonoBehaviour {
 
         if (col.gameObject.name == "Spring")
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 500));
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 600));
+        }
+
+        if (col.gameObject.name == "needReload")
+        {
+            StatisticData.instance.NeedReload = true;
+        }
+
+        if (col.gameObject.name == "endLevelSaveLoad")
+        {
+            StatisticData.instance.FinishLevels = 1;
+            Application.LoadLevel("scene0");
+        }
+
+        if (col.gameObject.name == "nextLevel")
+        {
+            switch (StatisticData.instance.FinishLevels)
+            {
+                case 0:
+                    Application.LoadLevel("save-load");
+                    return;
+                case 1:
+                    Application.LoadLevel("ViuginickScene");
+                    return;
+                case 2:
+                    Application.LoadLevel("save-load");
+                    return;
+                case 3:
+                    Application.LoadLevel("save-load");
+                    return;
+                default:
+                    Application.LoadLevel(Application.loadedLevel);
+                    return;
+
+            }
+            /*if (!(GameObject.Find("star"))) Application.LoadLevel ("save-load");
+				}*/
         }
 
         if (col.gameObject.name == "finishCollider" && !StatisticData.instance.EndButtonIsActive)
@@ -93,7 +125,28 @@ public class characterController : MonoBehaviour {
 
 	void OnGUI(){
 		//GUI.Box(new Rect (0, 0, 100, 100), "Stars: " + score);
-        GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100), "Sample text");
+        switch(Application.loadedLevelName)
+        {
+            case "scene0":
+                if (StatisticData.instance.FinishLevels == 0)
+                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
+                        , "Привет. Перед тобой обычный платформер.\n Не обращай внимание - иди дальше.");
+                break;
+            case "save-load":
+                if (!StatisticData.instance.NeedReload && !StatisticData.instance.Rebooted)
+                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
+                        , "Вижу ты пошёл вспять и попал вперёд. Так держать.");
+                else if (StatisticData.instance.NeedReload && !StatisticData.instance.Rebooted)
+                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
+                        , "Иногда чтобы что-то починить. Нужно перезапустить.");
+                else if (StatisticData.instance.Rebooted)
+                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
+                        , "Не находишь забавным, что преступник \nзачастую возвращается на место преступления?");
+                break;
+            default:
+                GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
+                        , "Просто двигайся дальше, друг");
+                break;
+        }
     }
-
 }
