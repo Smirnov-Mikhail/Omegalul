@@ -76,13 +76,14 @@ public class characterController : MonoBehaviour {
 						Destroy (col.gameObject);
 				}
 
-		if (col.gameObject.name == "endLevel") {
+		/*if (col.gameObject.name == "endLevel") {
 			if (!(GameObject.Find("star"))) Application.LoadLevel ("scene2");
-				}
+				}*/
 	}
 
 	void OnGUI(){
-				GUI.Box (new Rect (0, 0, 100, 100), "Stars: " + score);
-		}
-		
+		//GUI.Box(new Rect (0, 0, 100, 100), "Stars: " + score);
+        GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100), "Sample text");
+    }
+
 }
