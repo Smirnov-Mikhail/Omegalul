@@ -43,6 +43,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*.pdb
 		
 MightyParty.CSharp
 MightyParty.CSharp.*
