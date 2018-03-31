@@ -4,10 +4,10 @@ using System.Collections;
 public class DangerBurger : MonoBehaviour
 {
     // Update is called once per frame
-    public int count;
     public float shift = 0.1f;
 
-    bool left;
+    private int count;
+    private bool left;
     void Update()
     {
         var curPos = transform.localPosition;
