@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class shaduledPlatform : MonoBehaviour {
+public class ScheduledPlatform : MonoBehaviour {
 
     private int MAX_STEP = 10;
 
