@@ -42,7 +42,10 @@ public class characterController : MonoBehaviour
 
     void Update()
     {
-        State = HeroState.Idle;
+        if(grounded)
+        {
+            State = HeroState.Idle;
+        }
 
         if (locked)
             return;
@@ -55,7 +58,7 @@ public class characterController : MonoBehaviour
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
-        if (move != 0) {
+        if (move != 0 && State != HeroState.Jump) {
             State = HeroState.Run;
         }
 
