@@ -16,6 +16,10 @@ public class ScheduledPlatform : MonoBehaviour {
     int myStepsNumber = 0;
 
     void Start() {
+        if (myMoveSchedule.Count == 0)
+        {
+            return;
+        }
         Vector3 moveVector = new Vector3(myMoveSchedule[myPos].x, myMoveSchedule[myPos].y, myMoveSchedule[myPos].z);
         myStepsNumber = (int)System.Math.Round(myMoveSchedule[myPos].w);
         myMoveDelta = (moveVector) / myStepsNumber;
@@ -29,6 +33,11 @@ public class ScheduledPlatform : MonoBehaviour {
         {
             transform.localPosition += myMoveDelta;
             myStepsNumber--;
+            return;
+        }
+
+        if(myMoveSchedule.Count == 0)
+        {
             return;
         }
 
