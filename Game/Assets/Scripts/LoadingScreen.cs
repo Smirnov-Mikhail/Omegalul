@@ -88,7 +88,7 @@ namespace Assets.Scripts
                 LoadingCircle.fillAmount = count * 0.01f;
                 count++;
 
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForSeconds(0.02f);
             }
 
         }

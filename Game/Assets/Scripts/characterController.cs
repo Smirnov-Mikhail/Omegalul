@@ -321,7 +321,7 @@ public class characterController : MonoBehaviour
                 }
                 if (StatisticData.instance.FinishLevels == 3)
                 {
-                    GUI.Box(rect, "А это точне не\n\"Взломать блоггеров\"?");
+                    GUI.Box(rect, "А это точно не\n\"Взломать блоггеров\"?");
                     break;
                 }
                 break;
