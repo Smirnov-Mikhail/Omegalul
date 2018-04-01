@@ -147,11 +147,12 @@ public class characterController : MonoBehaviour
             Application.LoadLevel("scene0");
         }
 
-        if (col.gameObject.name == "endLevelOutOfBounds")
+        if (col.gameObject.name == "endLevelLoadBarLevel")
         {
-            StatisticData.instance.FinishLevels = 2;
+            StatisticData.instance.FinishLevels = 3;
             Application.LoadLevel("scene0");
         }
+
 
         if (col.gameObject.name == "nextLevel")
         {

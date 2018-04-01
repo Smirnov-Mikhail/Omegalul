@@ -9,7 +9,8 @@ namespace Assets.Scripts
     public class ButtonScriptcs : MonoBehaviour
     {
         public GameObject button;
-        public DateTime time;
+        public float lifetime;
+        private DateTime time;
 
         void OnTriggerEnter2D(Collider2D col)
         {
@@ -25,7 +26,7 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            if (DateTime.Now > time.AddSeconds(1))
+            if (DateTime.Now > time.AddSeconds(lifetime))
             {
                 button.SetActive(true);
                 StatisticData.instance.EndButtonIsActive = true;
