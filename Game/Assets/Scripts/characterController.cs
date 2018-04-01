@@ -21,17 +21,24 @@ public class characterController : MonoBehaviour
     private bool amIDead = false;
     private Animator animator;
     private Rigidbody2D rigidBody2d;
-
+    private AudioSource audioSrc;
+    AudioClip death; 
+    AudioClip jump;
+    
     private bool HeroDies
     {
         get { return animator.GetBool("HeroDies"); }
         set { animator.SetBool("HeroDies", value); }
     }
-
+    private bool started = false;
     private HeroState State
     {
         get { return (HeroState)animator.GetInteger("State"); }
-        set { animator.SetInteger("State", (int)value); }
+        set {
+            bool shouldChange = animator.GetInteger("State") != (int)value;
+            
+            animator.SetInteger("State", (int)value);
+        }
     }
 
     private GameObject star;
@@ -39,6 +46,9 @@ public class characterController : MonoBehaviour
     private void Awake() {
         animator = GetComponent<Animator>();
         rigidBody2d = GetComponent<Rigidbody2D>();
+        audioSrc = GetComponentInChildren<AudioSource>();
+        death = (AudioClip)Resources.Load("MusicDeath");
+        jump = (AudioClip)Resources.Load("jump");
     }
 
     // Use this for initialization
@@ -53,6 +63,8 @@ public class characterController : MonoBehaviour
         
         move = Input.GetAxis("Horizontal");
     }
+
+    private bool isRunning = false;
 
     void Update()
     {
@@ -90,6 +102,11 @@ public class characterController : MonoBehaviour
             State = HeroState.Jump;
             letJump = 60;
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
+            if (!isRunning && !audioSrc.isPlaying)
+            {
+                audioSrc.PlayOneShot(jump);
+                //jumpSrc.Play();
+            }
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
@@ -113,6 +130,12 @@ public class characterController : MonoBehaviour
                 StatisticData.instance.Rebooted = true;
             Application.LoadLevel(Application.loadedLevel);
         }
+
+        if (State == HeroState.Jump)
+        {
+            
+        }
+        isRunning = audioSrc.isPlaying;
     }
 
     void Flip()
@@ -141,6 +164,15 @@ public class characterController : MonoBehaviour
         {
             if(!HeroDies)
             {
+                if (!audioSrc.isPlaying)
+                {
+                    audioSrc.PlayOneShot(death);
+                }
+                else
+                {
+                    audioSrc.Stop();
+                    audioSrc.PlayOneShot(death);
+                }
                 rigidBody2d.velocity = Vector2.zero;
                 State = HeroState.None;
                 HeroDies = true;
@@ -159,6 +191,11 @@ public class characterController : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 1400));
+            AudioSource src = col.gameObject.GetComponentInChildren<AudioSource>();
+            if (!src.isPlaying)
+            {
+                src.Play();
+            }
 
         }
 
@@ -246,6 +283,11 @@ public class characterController : MonoBehaviour
     {
         if (col.gameObject.name == "SpringTop")
         {
+            AudioSource src = col.gameObject.GetComponentInChildren<AudioSource>();
+            if(!src.isPlaying)
+            {
+                src.Play();
+            }
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 600));
         }
     }
