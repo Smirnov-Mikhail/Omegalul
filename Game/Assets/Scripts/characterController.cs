@@ -36,7 +36,6 @@ public class characterController : MonoBehaviour
     void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-
         move = Input.GetAxis("Horizontal");
 
     }
@@ -76,8 +75,6 @@ public class characterController : MonoBehaviour
                 StatisticData.instance.Rebooted = true;
             Application.LoadLevel(Application.loadedLevel);
         }
-
-
     }
 
     void Flip()

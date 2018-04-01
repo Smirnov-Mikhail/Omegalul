@@ -52,3 +52,4 @@ MightyParty.CSharp.*
 MightyParty.sln
 Assets/StreamingAssets/crashlytics-build.properties
 Assets/StreamingAssets/crashlytics-build.properties.meta
+/Game/haha_Data/Managed/*.mdb
