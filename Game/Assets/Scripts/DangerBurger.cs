@@ -19,12 +19,12 @@ public class DangerBurger : MonoBehaviour
 
         if (left)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x - shift, transform.localPosition.y, -10);
+            transform.localPosition = new Vector3(transform.localPosition.x - shift, transform.localPosition.y, transform.localPosition.z);
             count++;
         }
         else
         {
-            transform.localPosition = new Vector3(transform.localPosition.x + shift, transform.localPosition.y, -10);
+            transform.localPosition = new Vector3(transform.localPosition.x + shift, transform.localPosition.y, transform.localPosition.z);
             count--;
         }
 

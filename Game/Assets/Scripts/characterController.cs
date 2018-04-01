@@ -13,6 +13,8 @@ public class characterController : MonoBehaviour
     public float score;
     public float move;
     public bool locked;
+    public int letJump = 0;
+    public int letDie = 0;
 
     private Animator animator;
     private HeroState State
@@ -36,15 +38,30 @@ public class characterController : MonoBehaviour
     void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+        
         move = Input.GetAxis("Horizontal");
-
     }
 
     void Update()
     {
-        if(grounded)
+        if(State == HeroState.Dead)
+        {
+            letDie--;
+
+            if(letDie < 0)
+            {
+                Application.LoadLevel(Application.loadedLevel);
+            }
+            return;
+        }
+        if (grounded && letJump == 0)
         {
             State = HeroState.Idle;
+        }
+        
+        if(State == HeroState.Jump)
+        {
+            letJump = Mathf.Max(0, letJump - 1);
         }
 
         if (locked)
@@ -52,13 +69,13 @@ public class characterController : MonoBehaviour
 
         if (grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
         {
-            Debug.Log("Jump");
             State = HeroState.Jump;
+            letJump = 60;
             GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
         }
         GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 
-        if (move != 0 && State != HeroState.Jump) {
+        if (move != 0 && grounded && letJump == 0) {
             State = HeroState.Run;
         }
 
@@ -90,18 +107,22 @@ public class characterController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if ((col.gameObject.name == "dieCollider") || (col.gameObject.name == "saw"))
-            Application.LoadLevel(Application.loadedLevel);
+        if (col.gameObject.name == "dieCollider" || 
+            col.gameObject.name == "saw" ||
+            col.gameObject.name == "DangerBurger" ||
+            col.gameObject.name == "FlyDangerBurger(Clone)")
+        {
+            State = HeroState.Dead;
+            if(letDie <= 0)
+            {
+                letDie = 10;
+            }
+        }
 
         if (col.gameObject.name == "star")
         {
             score++;
             Destroy(col.gameObject);
-        }
-
-        if (col.gameObject.name == "DangerBurger" || col.gameObject.name == "FlyDangerBurger(Clone)")
-        {
-            Application.LoadLevel(Application.loadedLevel);
         }
 
         if (col.gameObject.name == "Spring")
@@ -194,5 +215,6 @@ public class characterController : MonoBehaviour
 public enum HeroState {
     Idle,
     Run,
-    Jump
+    Jump,
+    Dead
 }
