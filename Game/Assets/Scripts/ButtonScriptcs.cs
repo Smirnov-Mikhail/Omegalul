@@ -18,9 +18,14 @@ namespace Assets.Scripts
             time = DateTime.Now;
         }
 
+        void OnTriggerStay2D(Collider2D col)
+        {
+            time = DateTime.Now;
+        }
+
         private void Update()
         {
-            if (DateTime.Now > time.AddSeconds(10))
+            if (DateTime.Now > time.AddSeconds(1))
             {
                 button.SetActive(true);
                 StatisticData.instance.EndButtonIsActive = true;

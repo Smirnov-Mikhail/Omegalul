@@ -73,7 +73,7 @@ public class characterController : MonoBehaviour {
 						Destroy (col.gameObject);
 				}
 
-        if (col.gameObject.name == "DangerBurger")
+        if (col.gameObject.name == "DangerBurger" || col.gameObject.name == "FlyDangerBurger(Clone)")
         {
             Application.LoadLevel(Application.loadedLevel);
         }
@@ -94,6 +94,18 @@ public class characterController : MonoBehaviour {
             Application.LoadLevel("scene0");
         }
 
+        if (col.gameObject.name == "endLevelOutOfBounds")
+        {
+            StatisticData.instance.FinishLevels = 2;
+            Application.LoadLevel("scene0");
+        }
+
+        if (col.gameObject.name == "endLevelOutOfBounds")
+        {
+            StatisticData.instance.FinishLevels = 2;
+            Application.LoadLevel("scene0");
+        }
+
         if (col.gameObject.name == "nextLevel")
         {
             switch (StatisticData.instance.FinishLevels)
@@ -102,10 +114,10 @@ public class characterController : MonoBehaviour {
                     Application.LoadLevel("save-load");
                     return;
                 case 1:
-                    Application.LoadLevel("ViuginickScene");
+                    Application.LoadLevel("outOfBounds");
                     return;
                 case 2:
-                    Application.LoadLevel("save-load");
+                    Application.LoadLevel("loadbar_level");
                     return;
                 case 3:
                     Application.LoadLevel("save-load");
@@ -130,7 +142,7 @@ public class characterController : MonoBehaviour {
             case "scene0":
                 if (StatisticData.instance.FinishLevels == 0)
                     GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
-                        , "Привет. Перед тобой обычный платформер.\n Не обращай внимание - иди дальше.");
+                        , "Привет. Перед тобой обычный платформер.\n Не обращай внимание - иди дальше. \n WASD - двигаться. R - начать уровень заново");
                 break;
             case "save-load":
                 if (!StatisticData.instance.NeedReload && !StatisticData.instance.Rebooted)
