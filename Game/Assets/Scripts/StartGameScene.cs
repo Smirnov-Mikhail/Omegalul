@@ -32,7 +32,7 @@ namespace Assets.Scripts
             {
                 FlyDangerBurger rocketClone = (FlyDangerBurger)Instantiate(FlyBurger, FlyBurgerStartPosition, transform.rotation);
                 rocketClone.needDestroy = true;
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
         }
     }
