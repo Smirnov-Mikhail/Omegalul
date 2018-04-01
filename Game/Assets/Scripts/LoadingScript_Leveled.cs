@@ -4,10 +4,8 @@ using System.Collections.Generic;
 
 public class LoadingScript_Leveled : MonoBehaviour
 {
-
     public List<LevelObjectGroup> groups;
     public GameObject Game;
-    public SpriteRenderer Fire;
     public characterController Character;
     private int count;
     private IEnumerator _corrutine;
@@ -30,10 +28,6 @@ public class LoadingScript_Leveled : MonoBehaviour
         StartCoroutine(_corrutine);
     }
 	
-	// Update is called once per frame
-	void Update () {
-        Fire.transform.Rotate(new Vector3(0f, 0f, -2f));
-    }
     IEnumerator MyCoroutine()
     {
         while (true)
@@ -62,8 +56,6 @@ public class LoadingScript_Leveled : MonoBehaviour
             {
                 var color = sprites[i].color;
                 sprites[i].color = new Color(color.r, color.g, color.b, count * 0.01f);
-                var colorFire = sprites[i].color;
-                Fire.color = new Color(colorFire.r, colorFire.g, colorFire.b, (100 - count) * 0.01f);
             }
             count++;
 

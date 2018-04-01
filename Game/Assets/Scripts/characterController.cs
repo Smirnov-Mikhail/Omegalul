@@ -141,9 +141,11 @@ public class characterController : MonoBehaviour
             Destroy(col.gameObject);
         }
 
-        if (col.gameObject.name == "Spring")
+        if (col.gameObject.name == "SpringTop")
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 600));
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 1400));
+
         }
 
         if (col.gameObject.name == "needReload")
@@ -229,7 +231,14 @@ public class characterController : MonoBehaviour
             Application.LoadLevel("gameOver");
     }
 
-    void OnGUI()
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.name == "SpringTop")
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 600));
+        }
+    }
+        void OnGUI()
     {
         //GUI.Box(new Rect (0, 0, 100, 100), "Stars: " + score);
         var rect = new Rect(Screen.width * 3 / 10, Screen.height - 80, Screen.width - Screen.width * 6 / 10, 55);

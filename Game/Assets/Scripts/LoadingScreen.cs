@@ -7,7 +7,6 @@ namespace Assets.Scripts
     public class LoadingScreen : MonoBehaviour
     {
         public GameObject Game;
-        public SpriteRenderer Fire;
         public characterController Character;
         public List<GameObject> FistShow;
         public List<GameObject> SecondShow;
@@ -41,11 +40,6 @@ namespace Assets.Scripts
 
             Game.SetActive(true);
             StartCoroutine(_corrutine);
-        }
-
-        void Update()
-        {
-            Fire.transform.Rotate(new Vector3(0f, 0f, -2f));
         }
 
         IEnumerator MyCoroutine()
@@ -88,12 +82,10 @@ namespace Assets.Scripts
                 {
                     var color = sprites[i].color;
                     sprites[i].color = new Color(color.r, color.g, color.b, count * 0.01f);
-                    var colorFire = sprites[i].color;
-                    Fire.color = new Color(colorFire.r, colorFire.g, colorFire.b, (100 - count) * 0.01f);
                 }
                 count++;
 
-                yield return new WaitForSeconds(0.00001f);
+                yield return new WaitForSeconds(0.03f);
             }
 
         }
