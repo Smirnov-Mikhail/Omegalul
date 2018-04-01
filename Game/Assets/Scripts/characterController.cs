@@ -115,7 +115,7 @@ public class characterController : MonoBehaviour
             State = HeroState.Dead;
             if(letDie <= 0)
             {
-                letDie = 10;
+                letDie = 100;
             }
         }
 
