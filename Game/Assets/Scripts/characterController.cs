@@ -19,6 +19,14 @@ public class characterController : MonoBehaviour
 
     private bool amIDead = false;
     private Animator animator;
+    private Rigidbody2D rigidBody2d;
+
+    private bool HeroDies
+    {
+        get { return animator.GetBool("HeroDies"); }
+        set { animator.SetBool("HeroDies", value); }
+    }
+
     private HeroState State
     {
         get { return (HeroState)animator.GetInteger("State"); }
@@ -29,6 +37,7 @@ public class characterController : MonoBehaviour
 
     private void Awake() {
         animator = GetComponent<Animator>();
+        rigidBody2d = GetComponent<Rigidbody2D>();
     }
 
     // Use this for initialization
@@ -46,7 +55,7 @@ public class characterController : MonoBehaviour
 
     void Update()
     {
-        if(State == HeroState.Dead)
+        if(HeroDies)
         {
             letDie--;
 
@@ -56,6 +65,7 @@ public class characterController : MonoBehaviour
             }
             return;
         }
+
         if (grounded && letJump == 0)
         {
             State = HeroState.Idle;
@@ -115,12 +125,13 @@ public class characterController : MonoBehaviour
             col.gameObject.name == "FlyDangerBurger(Clone)" ||
             col.gameObject.name == "Shot(Clone)")
         {
-            if(!amIDead)
+            if(!HeroDies)
             {
-                Debug.Log("Dead");
-                amIDead = true;
-                State = HeroState.Dead;
+                rigidBody2d.velocity = Vector2.zero;
+                State = HeroState.None;
+                HeroDies = true;
                 letDie = 100;
+                return;
             }
         }
 
@@ -222,5 +233,5 @@ public enum HeroState {
     Idle,
     Run,
     Jump,
-    Dead
+    None
 }

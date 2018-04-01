@@ -12,10 +12,16 @@ public class DangerBurger : MonoBehaviour
     {
         var curPos = transform.localPosition;
         if (count == 0)
+        {
             left = true;
+            transform.localScale = new Vector3(-1.0F * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
 
         if (count == 100)
+        {
             left = false;
+            transform.localScale = new Vector3(-1.0F * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
 
         if (left)
         {
