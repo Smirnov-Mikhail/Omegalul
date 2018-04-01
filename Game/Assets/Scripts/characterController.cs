@@ -112,7 +112,8 @@ public class characterController : MonoBehaviour
         if (col.gameObject.name == "dieCollider" || 
             col.gameObject.name == "saw" ||
             col.gameObject.name == "DangerBurger" ||
-            col.gameObject.name == "FlyDangerBurger(Clone)")
+            col.gameObject.name == "FlyDangerBurger(Clone)" ||
+            col.gameObject.name == "Shot(Clone)")
         {
             if(!amIDead)
             {

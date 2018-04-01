@@ -6,6 +6,7 @@ public class Vrag : MonoBehaviour
 
     private Animator animator;
     private CircleCollider2D colider;
+    public int ShotEveryFrames = 20;
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -26,7 +27,7 @@ public class Vrag : MonoBehaviour
     {
         if (animator.GetInteger("State") == 1)
         {
-            if (pulCOunter == 20)
+            if (pulCOunter == ShotEveryFrames)
             {
                 Shoot(currentPos, go);
                 pulCOunter = 0;
