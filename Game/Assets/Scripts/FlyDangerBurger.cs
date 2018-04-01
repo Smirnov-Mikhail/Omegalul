@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class FlyDangerBurger : MonoBehaviour
 {
@@ -16,15 +15,20 @@ public class FlyDangerBurger : MonoBehaviour
             Destroy(gameObject, lifeTime);
     }
 
+    public void DestroyThis()
+    {
+        Destroy(gameObject);
+    }
+
     void Update()
     {
         if (left)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x - shift, transform.localPosition.y, -10);
+            transform.localPosition = new Vector3(transform.localPosition.x - shift, transform.localPosition.y, transform.localPosition.z);
         }
         else
         {
-            transform.localPosition = new Vector3(transform.localPosition.x + shift, transform.localPosition.y, -10);
+            transform.localPosition = new Vector3(transform.localPosition.x + shift, transform.localPosition.y, transform.localPosition.z);
         }
 
     }

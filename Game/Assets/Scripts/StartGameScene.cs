@@ -22,16 +22,23 @@ namespace Assets.Scripts
 
             }
 
+            count = 0;
             _corrutine = MyCoroutine();
             StartCoroutine(_corrutine);
         }
 
+        int count;
         IEnumerator MyCoroutine()
         {
             while (true)
             {
                 FlyDangerBurger rocketClone = (FlyDangerBurger)Instantiate(FlyBurger, FlyBurgerStartPosition, transform.rotation);
                 rocketClone.needDestroy = true;
+
+                if (count == 0)
+                    rocketClone.DestroyThis();
+                count++;
+
                 yield return new WaitForSeconds(2f);
             }
         }

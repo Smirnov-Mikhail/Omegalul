@@ -19,5 +19,11 @@
         public bool EndButtonIsActive;
         public bool Rebooted;
         public bool NeedReload;
+        public bool IsInBalka;
+        public bool OpenEyes;
+        public bool ThroughRoof;
+        public bool ThroughFloor;
+        public bool InHurry;
+        public bool Headbutt;
     }
 }

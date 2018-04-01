@@ -151,6 +151,36 @@ public class characterController : MonoBehaviour
             StatisticData.instance.NeedReload = true;
         }
 
+        if (col.gameObject.name == "InBalka")
+        {
+            StatisticData.instance.IsInBalka = true;
+        }
+
+        if (col.gameObject.name == "OpenEyes")
+        {
+            StatisticData.instance.OpenEyes = true;
+        }
+
+        if (col.gameObject.name == "ThroughRoof")
+        {
+            StatisticData.instance.ThroughRoof = true;
+        }
+
+        if (col.gameObject.name == "ThroughFloor")
+        {
+            StatisticData.instance.ThroughFloor = true;
+        }
+
+        if (col.gameObject.name == "InHurry")
+        {
+            StatisticData.instance.InHurry = true;
+        }
+
+        if (col.gameObject.name == "Headbutt")
+        {
+            StatisticData.instance.Headbutt = true;
+        }
+
         if (col.gameObject.name == "endLevelSaveLoad")
         {
             StatisticData.instance.FinishLevels = 1;
@@ -166,7 +196,7 @@ public class characterController : MonoBehaviour
         if (col.gameObject.name == "endLevelLoadBarLevel")
         {
             StatisticData.instance.FinishLevels = 3;
-            Application.LoadLevel("scene0");
+            Application.LoadLevel("windowsExeption3");
         }
 
 
@@ -202,27 +232,60 @@ public class characterController : MonoBehaviour
     void OnGUI()
     {
         //GUI.Box(new Rect (0, 0, 100, 100), "Stars: " + score);
+        var rect = new Rect(Screen.width * 3 / 10, Screen.height - 80, Screen.width - Screen.width * 6 / 10, 55);
         switch (Application.loadedLevelName)
         {
             case "scene0":
                 if (StatisticData.instance.FinishLevels == 0)
-                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
-                        , "Привет. Перед тобой обычный платформер.\n Не обращай внимание - иди дальше. \n WASD - двигаться. R - начать уровень заново");
+                {
+                    GUI.Box(rect, "Привет. Перед тобой обычный платформер.\n Не обращай внимание - иди дальше. \n WASD - двигаться. R - начать уровень заново");
+                    break;
+                }
+                if (StatisticData.instance.FinishLevels == 1)
+                {
+                    GUI.Box(rect, "Надеюсь, следующий мир, в который я попаду,\n будет написан не Майкрософтом.");
+                    break;
+                }
+                if (StatisticData.instance.FinishLevels == 2)
+                {
+                    GUI.Box(rect, "А теперь серьезный вопрос:\nЗачем мне меч и щит,\nесли я не могу сражаться?");
+                    break;
+                }
+                if (StatisticData.instance.FinishLevels == 3)
+                {
+                    GUI.Box(rect, "А теперь серьезный вопрос:\nЗачем мне меч и щит,\nесли я не могу сражаться?");
+                    break;
+                }
                 break;
             case "save-load":
                 if (!StatisticData.instance.NeedReload && !StatisticData.instance.Rebooted)
-                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
-                        , "Вижу ты пошёл вспять и попал вперёд. Так держать.");
+                    GUI.Box(rect
+                        , "Ты всегда первым делом прыгаешь в пропасть\n или только когда управляешь другими? ");
                 else if (StatisticData.instance.NeedReload && !StatisticData.instance.Rebooted)
-                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
-                        , "Иногда чтобы что-то починить. Нужно перезапустить.");
+                    GUI.Box(rect
+                        , "Ну да, ворота не открываются.\n И что делать будешь, программист?\n Ребутнешь?");
                 else if (StatisticData.instance.Rebooted)
-                    GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
-                        , "Не находишь забавным, что преступник \nзачастую возвращается на место преступления?");
+                    GUI.Box(rect
+                        , "");
+                break;
+            case "outOfBounds":
+                if (StatisticData.instance.ThroughFloor)
+                    GUI.Box(rect, "......................\n....................\n................");
+                else if (StatisticData.instance.ThroughRoof)
+                    GUI.Box(rect, "Ты ведь в курсе, что это неприятно?");
+                else if (StatisticData.instance.OpenEyes)
+                    GUI.Box(rect, "И куда мне, по-твоему, идти?\nСзади слизняк, впереди обрыв...\nПочему я вообще следую твоим советам?");
+                else if (StatisticData.instance.IsInBalka)
+                    GUI.Box(rect, "Ай.");
+                break;
+            case "loadbar_level":
+                if (StatisticData.instance.Headbutt)
+                    GUI.Box(rect, "Знаешь, когда-нибудь я тебя найду...");
+                else if (StatisticData.instance.InHurry)
+                    GUI.Box(rect, "И куда?\nХоть бы уровень прогрузил сначала.");
                 break;
             default:
-                GUI.Box(new Rect(Screen.width / 7, Screen.height - 100, Screen.width - Screen.width * 2 / 7, 100)
-                        , "Просто двигайся дальше, друг");
+                GUI.Box(rect, "Просто двигайся дальше, друг");
                 break;
         }
     }

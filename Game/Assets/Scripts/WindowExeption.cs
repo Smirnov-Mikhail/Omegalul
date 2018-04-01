@@ -6,7 +6,9 @@ namespace Assets.Scripts
     {
         private void Update()
         {
-            if (Input.anyKey && (Application.loadedLevelName == "windowsExeption1" || Application.loadedLevelName == "windowsExeption2"))
+            if ((Input.GetKeyDown("space") || Input.GetKeyDown(KeyCode.Return)) && (Application.loadedLevelName == "windowsExeption1" 
+                || Application.loadedLevelName == "windowsExeption2"
+                || Application.loadedLevelName == "windowsExeption3"))
             {
                 Application.LoadLevel("scene0");
             }
