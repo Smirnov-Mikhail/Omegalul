@@ -160,7 +160,7 @@ public class characterController : MonoBehaviour
         if (col.gameObject.name == "endLevelOutOfBounds")
         {
             StatisticData.instance.FinishLevels = 2;
-            Application.LoadLevel("scene0");
+            Application.LoadLevel("windowsExeption2");
         }
 
         if (col.gameObject.name == "endLevelLoadBarLevel")
