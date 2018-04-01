@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -10,6 +11,7 @@ namespace Assets.Scripts
         public characterController Character;
         public List<GameObject> FistShow;
         public List<GameObject> SecondShow;
+        public Image LoadingCircle;
         private int count;
         private IEnumerator _corrutine;
         private SpriteRenderer[] sprites;
@@ -83,6 +85,7 @@ namespace Assets.Scripts
                     var color = sprites[i].color;
                     sprites[i].color = new Color(color.r, color.g, color.b, count * 0.01f);
                 }
+                LoadingCircle.fillAmount = count * 0.01f;
                 count++;
 
                 yield return new WaitForSeconds(0.03f);
