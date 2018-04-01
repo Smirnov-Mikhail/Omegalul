@@ -16,6 +16,8 @@ public class characterController : MonoBehaviour
     public int letJump = 0;
     public int letDie = 0;
 
+
+    private bool amIDead = false;
     private Animator animator;
     private HeroState State
     {
@@ -112,9 +114,11 @@ public class characterController : MonoBehaviour
             col.gameObject.name == "DangerBurger" ||
             col.gameObject.name == "FlyDangerBurger(Clone)")
         {
-            State = HeroState.Dead;
-            if(letDie <= 0)
+            if(!amIDead)
             {
+                Debug.Log("Dead");
+                amIDead = true;
+                State = HeroState.Dead;
                 letDie = 100;
             }
         }
