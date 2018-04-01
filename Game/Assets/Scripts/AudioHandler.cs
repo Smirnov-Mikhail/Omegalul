@@ -3,6 +3,8 @@ using System.Collections;
 
 public class AudioHandler : MonoBehaviour {
 
+
+    public int delay = 1;
 	// Use this for initialization
 	void Start () {
 	
@@ -12,7 +14,7 @@ public class AudioHandler : MonoBehaviour {
     {
         var comp = GetComponent<AudioSource>();
         
-        comp.PlayDelayed(1);
+        comp.PlayDelayed(delay);
         Debug.Log("LOGGING!!");
     }
 
