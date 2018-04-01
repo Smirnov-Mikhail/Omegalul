@@ -16,7 +16,8 @@ public class characterController : MonoBehaviour
     public int letJump = 0;
     public int letDie = 0;
 
-
+    private int ticksTillEnd = 0;
+    private bool finished;
     private bool amIDead = false;
     private Animator animator;
     private Rigidbody2D rigidBody2d;
@@ -55,7 +56,12 @@ public class characterController : MonoBehaviour
 
     void Update()
     {
-        if(HeroDies)
+        if (finished && ticksTillEnd == 0)
+        {
+            Application.LoadLevel("gameOver");
+        }
+
+        if (HeroDies)
         {
             letDie--;
 
@@ -119,6 +125,14 @@ public class characterController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (col.gameObject.name == "finishCollider" && !StatisticData.instance.EndButtonIsActive)
+        {
+            locked = true;
+            finished = true;
+            this.ticksTillEnd = 800;
+            return;
+        }
+
         if (col.gameObject.name == "dieCollider" || 
             col.gameObject.name == "saw" ||
             col.gameObject.name == "DangerBurger" ||
@@ -226,9 +240,6 @@ public class characterController : MonoBehaviour
             /*if (!(GameObject.Find("star"))) Application.LoadLevel ("save-load");
 				}*/
         }
-
-        if (col.gameObject.name == "finishCollider" && !StatisticData.instance.EndButtonIsActive)
-            Application.LoadLevel("gameOver");
     }
 
     void OnTriggerStay2D(Collider2D col)
@@ -242,12 +253,18 @@ public class characterController : MonoBehaviour
     {
         //GUI.Box(new Rect (0, 0, 100, 100), "Stars: " + score);
         var rect = new Rect(Screen.width * 3 / 10, Screen.height - 80, Screen.width - Screen.width * 6 / 10, 55);
+        if (finished)
+        {
+            GUI.Box(rect, "И это все?\nСкинуть ящик на кнопку - это и есть конец?\nДа ну тебя.");
+            ticksTillEnd--;
+            return;
+        }
         switch (Application.loadedLevelName)
         {
             case "scene0":
                 if (StatisticData.instance.FinishLevels == 0)
                 {
-                    GUI.Box(rect, "Привет. Перед тобой обычный платформер.\n Не обращай внимание - иди дальше. \n WASD - двигаться. R - начать уровень заново");
+                    GUI.Box(rect, "Управление:\nWASD - двигаться.\nR - начать уровень заново");
                     break;
                 }
                 if (StatisticData.instance.FinishLevels == 1)
@@ -257,12 +274,12 @@ public class characterController : MonoBehaviour
                 }
                 if (StatisticData.instance.FinishLevels == 2)
                 {
-                    GUI.Box(rect, "А теперь серьезный вопрос:\nЗачем мне меч и щит,\nесли я не могу сражаться?");
+                    GUI.Box(rect, "А теперь серьезный вопрос:\nзачем мне меч и щит,\nесли я не могу сражаться?");
                     break;
                 }
                 if (StatisticData.instance.FinishLevels == 3)
                 {
-                    GUI.Box(rect, "А теперь серьезный вопрос:\nЗачем мне меч и щит,\nесли я не могу сражаться?");
+                    GUI.Box(rect, "А это точне не\n\"Взломать блоггеров\"?");
                     break;
                 }
                 break;
@@ -275,7 +292,7 @@ public class characterController : MonoBehaviour
                         , "Ну да, ворота не открываются.\n И что делать будешь, программист?\n Ребутнешь?");
                 else if (StatisticData.instance.Rebooted)
                     GUI.Box(rect
-                        , "");
+                        , "Ага, а теперь они, конечно же, открыты будут.");
                 break;
             case "outOfBounds":
                 if (StatisticData.instance.ThroughFloor)
@@ -292,9 +309,6 @@ public class characterController : MonoBehaviour
                     GUI.Box(rect, "Знаешь, когда-нибудь я тебя найду...");
                 else if (StatisticData.instance.InHurry)
                     GUI.Box(rect, "И куда?\nХоть бы уровень прогрузил сначала.");
-                break;
-            default:
-                GUI.Box(rect, "Просто двигайся дальше, друг");
                 break;
         }
     }

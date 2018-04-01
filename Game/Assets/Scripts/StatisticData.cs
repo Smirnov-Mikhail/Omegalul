@@ -25,5 +25,7 @@
         public bool ThroughFloor;
         public bool InHurry;
         public bool Headbutt;
+        public bool deadByBurger;
+        public bool stillHungry;
     }
 }
